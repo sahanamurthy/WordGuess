@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     var cards = [
         "Night",
         "Poison",
@@ -217,6 +217,11 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedNum = numbers[row]
 //        label.text = numbers[row]
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        txtInput.resignFirstResponder()
+        return false
     }
     
     @IBAction func sendClue(_ sender: Any) {
