@@ -15,6 +15,8 @@
 		1E603A441F0CA38100CFDF9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E603A421F0CA38100CFDF9F /* Main.storyboard */; };
 		1E603A461F0CA38100CFDF9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E603A451F0CA38100CFDF9F /* Assets.xcassets */; };
 		1E603A491F0CA38100CFDF9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E603A471F0CA38100CFDF9F /* LaunchScreen.storyboard */; };
+		1E770EC01F144815008FDA03 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E770EBF1F144815008FDA03 /* GoogleService-Info.plist */; };
+		C29CA80E7FFCB91B824E6735 /* Pods_wordguess_practice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE4387653CA13E75CAA6679 /* Pods_wordguess_practice.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,10 @@
 		1E603A451F0CA38100CFDF9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E603A481F0CA38100CFDF9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E603A4A1F0CA38100CFDF9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E770EBF1F144815008FDA03 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A5B0F9745E94A53651F9501E /* Pods-wordguess practice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wordguess practice.release.xcconfig"; path = "Pods/Target Support Files/Pods-wordguess practice/Pods-wordguess practice.release.xcconfig"; sourceTree = "<group>"; };
+		BB6E438A4B87D34722E1119C /* Pods-wordguess practice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wordguess practice.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wordguess practice/Pods-wordguess practice.debug.xcconfig"; sourceTree = "<group>"; };
+		FFE4387653CA13E75CAA6679 /* Pods_wordguess_practice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wordguess_practice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +41,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C29CA80E7FFCB91B824E6735 /* Pods_wordguess_practice.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E382C74DACDA76CF8F6C7B2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FFE4387653CA13E75CAA6679 /* Pods_wordguess_practice.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1E603A2C1F0CA38000CFDF9F = {
 			isa = PBXGroup;
 			children = (
 				1E603A371F0CA38100CFDF9F /* wordguess practice */,
 				1E603A361F0CA38100CFDF9F /* Products */,
+				5C6ADAB0CAEBEF6F3BA7574F /* Pods */,
+				0E382C74DACDA76CF8F6C7B2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,8 +86,18 @@
 				1E603A451F0CA38100CFDF9F /* Assets.xcassets */,
 				1E603A471F0CA38100CFDF9F /* LaunchScreen.storyboard */,
 				1E603A4A1F0CA38100CFDF9F /* Info.plist */,
+				1E770EBF1F144815008FDA03 /* GoogleService-Info.plist */,
 			);
 			path = "wordguess practice";
+			sourceTree = "<group>";
+		};
+		5C6ADAB0CAEBEF6F3BA7574F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BB6E438A4B87D34722E1119C /* Pods-wordguess practice.debug.xcconfig */,
+				A5B0F9745E94A53651F9501E /* Pods-wordguess practice.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,9 +107,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E603A4D1F0CA38100CFDF9F /* Build configuration list for PBXNativeTarget "wordguess practice" */;
 			buildPhases = (
+				15FEEFC218686FF7CFC8771B /* [CP] Check Pods Manifest.lock */,
 				1E603A311F0CA38000CFDF9F /* Sources */,
 				1E603A321F0CA38000CFDF9F /* Frameworks */,
 				1E603A331F0CA38000CFDF9F /* Resources */,
+				34C1EC4011EF9F53849C11B1 /* [CP] Embed Pods Frameworks */,
+				C8930DC934F8A478C583B240 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -138,10 +168,59 @@
 				1E603A461F0CA38100CFDF9F /* Assets.xcassets in Resources */,
 				1E603A491F0CA38100CFDF9F /* LaunchScreen.storyboard in Resources */,
 				1E603A3D1F0CA38100CFDF9F /* Actions.sks in Resources */,
+				1E770EC01F144815008FDA03 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		15FEEFC218686FF7CFC8771B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		34C1EC4011EF9F53849C11B1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-wordguess practice/Pods-wordguess practice-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8930DC934F8A478C583B240 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-wordguess practice/Pods-wordguess practice-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1E603A311F0CA38000CFDF9F /* Sources */ = {
@@ -271,6 +350,7 @@
 		};
 		1E603A4E1F0CA38100CFDF9F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB6E438A4B87D34722E1119C /* Pods-wordguess practice.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -287,6 +367,7 @@
 		};
 		1E603A4F1F0CA38100CFDF9F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5B0F9745E94A53651F9501E /* Pods-wordguess practice.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

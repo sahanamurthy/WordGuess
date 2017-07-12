@@ -100,6 +100,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var teams = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2,
                  2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3,
                  3, 3, 4]
+//    var buttons: [UIButton] = [UIButton]()
     
     @IBOutlet weak var btn: UIButton!
     @IBOutlet weak var btn2: UIButton!
@@ -129,6 +130,9 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        buttons.append(btn)
+//        buttons.append(btn2)
 
         let shuffledCards = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: cards)
         
