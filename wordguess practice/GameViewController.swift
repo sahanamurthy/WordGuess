@@ -9,8 +9,13 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import FirebaseDatabase
 
 class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+    
+    var ref:DatabaseReference?
+    var handle:DatabaseHandle?
+    
     var cards = [
         "Night",
         "Poison",
@@ -133,12 +138,15 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
 //        buttons.append(btn)
 //        buttons.append(btn2)
-
+        ref = Database.database().reference()
+        
         let shuffledCards = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: cards)
         
         let shuffledTeams = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: teams)
         
+        ref?.child("card").childByAutoId().setValue(["word": shuffledCards[0]])
         btn.setTitle(shuffledCards[0] as? String, for: .normal); btn.tag = shuffledTeams[0] as! Int
+        
         btn2.setTitle(shuffledCards[1] as? String, for: .normal); btn2.tag = shuffledTeams[1] as! Int
         
         btn3.setTitle(shuffledCards[2] as? String, for: .normal); btn3.tag = shuffledTeams[2] as! Int
