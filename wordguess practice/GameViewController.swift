@@ -146,6 +146,11 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         ref?.child("card").childByAutoId().setValue(["word": shuffledCards[0]])
         btn.setTitle(shuffledCards[0] as? String, for: .normal); btn.tag = shuffledTeams[0] as! Int
+        handle = ref?.child("card").observe(.childAdded, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let word = value?["word"] as? String
+            self.btn.setTitle(word, for: .normal)
+        })
         
         btn2.setTitle(shuffledCards[1] as? String, for: .normal); btn2.tag = shuffledTeams[1] as! Int
         
