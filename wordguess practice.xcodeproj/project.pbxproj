@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E4A41F51F194C8000E87BC3 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A41F41F194C8000E87BC3 /* GameState.swift */; };
+		1E4A41F71F194DD100E87BC3 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A41F61F194DD100E87BC3 /* Card.swift */; };
 		1E603A391F0CA38100CFDF9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E603A381F0CA38100CFDF9F /* AppDelegate.swift */; };
 		1E603A3B1F0CA38100CFDF9F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1E603A3A1F0CA38100CFDF9F /* GameScene.sks */; };
 		1E603A3D1F0CA38100CFDF9F /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1E603A3C1F0CA38100CFDF9F /* Actions.sks */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E4A41F41F194C8000E87BC3 /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		1E4A41F61F194DD100E87BC3 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		1E603A351F0CA38100CFDF9F /* wordguess practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wordguess practice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E603A381F0CA38100CFDF9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E603A3A1F0CA38100CFDF9F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -77,10 +81,12 @@
 		1E603A371F0CA38100CFDF9F /* wordguess practice */ = {
 			isa = PBXGroup;
 			children = (
-				1E603A381F0CA38100CFDF9F /* AppDelegate.swift */,
 				1E603A3A1F0CA38100CFDF9F /* GameScene.sks */,
 				1E603A3C1F0CA38100CFDF9F /* Actions.sks */,
 				1E603A3E1F0CA38100CFDF9F /* GameScene.swift */,
+				1E603A381F0CA38100CFDF9F /* AppDelegate.swift */,
+				1E4A41F61F194DD100E87BC3 /* Card.swift */,
+				1E4A41F41F194C8000E87BC3 /* GameState.swift */,
 				1E603A401F0CA38100CFDF9F /* GameViewController.swift */,
 				1E603A421F0CA38100CFDF9F /* Main.storyboard */,
 				1E603A451F0CA38100CFDF9F /* Assets.xcassets */,
@@ -229,6 +235,8 @@
 			files = (
 				1E603A3F1F0CA38100CFDF9F /* GameScene.swift in Sources */,
 				1E603A411F0CA38100CFDF9F /* GameViewController.swift in Sources */,
+				1E4A41F71F194DD100E87BC3 /* Card.swift in Sources */,
+				1E4A41F51F194C8000E87BC3 /* GameState.swift in Sources */,
 				1E603A391F0CA38100CFDF9F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

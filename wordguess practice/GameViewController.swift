@@ -16,85 +16,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var ref:DatabaseReference?
     var handle:DatabaseHandle?
     
-    var cards = [
-        "Night",
-        "Poison",
-        "Tower",
-        "Pyramid",
-        "Opera",
-        "Scuba Diver",
-        "Africa",
-        "Mail",
-        "Undertaker",
-        "Aztec",
-        "Maple",
-        "Orange",
-        "Temple",
-        "Smuggler",
-        "England",
-        "Pupil",
-        "Plot",
-        "Witch",
-        "Ketchup",
-        "Atlantis",
-        "Vacuum",
-        "Soldier",
-        "Berry",
-        "Pants",
-        "Wall",
-        "Pipe",
-        "Novel",
-        "Ivory",
-        "America",
-        "Snow",
-        "Trunk",
-        "Bark",
-        "Thief",
-        "Eagle",
-        "Genius",
-        "Beijing",
-        "Racket",
-        "Torch",
-        "State",
-        "Link",
-        "Dance",
-        "Flute",
-        "Bunny",
-        "Carrot",
-        "Princess",
-        "Time",
-        "Unicorn",
-        "Spy",
-        "Circle",
-        "Bed",
-        "Port",
-        "Disease",
-        "Swing",
-        "Hand",
-        "Fort",
-        "Germany",
-        "Loch Ness",
-        "Log",
-        "Code",
-        "Kiwi",
-        "Spike",
-        "Scientist",
-        "Row",
-        "Pistol",
-        "Robot",
-        "Embassy",
-        "Paste",
-        "Missile",
-        "Bug",
-        "Mint",
-        "Gold",
-        "Tick",
-        "Crash",
-        "Tail",
-        "Angel",
-        "Spider"
-    ]
-    
     let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     
     @IBOutlet weak var txtOutput: UITextView!
@@ -102,10 +23,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var label: UILabel!
     var selectedNum:String = ""
     
-    var teams = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2,
-                 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3,
-                 3, 3, 4]
-//    var buttons: [UIButton] = [UIButton]()
+    var buttons: [UIButton] = [UIButton]()
     
     @IBOutlet weak var btn: UIButton!
     @IBOutlet weak var btn2: UIButton!
@@ -133,72 +51,113 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var btn24: UIButton!
     @IBOutlet weak var btn25: UIButton!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        buttons.append(btn)
-//        buttons.append(btn2)
+        var game = GameState()
+        game.createCards()
+        
+        buttons.append(btn)
+        buttons.append(btn2)
+        buttons.append(btn3)
+        buttons.append(btn4)
+        buttons.append(btn5)
+        buttons.append(btn6)
+        buttons.append(btn7)
+        buttons.append(btn8)
+        buttons.append(btn9)
+        buttons.append(btn10)
+        buttons.append(btn11)
+        buttons.append(btn12)
+        buttons.append(btn13)
+        buttons.append(btn14)
+        buttons.append(btn15)
+        buttons.append(btn16)
+        buttons.append(btn17)
+        buttons.append(btn18)
+        buttons.append(btn19)
+        buttons.append(btn20)
+        buttons.append(btn21)
+        buttons.append(btn22)
+        buttons.append(btn23)
+        buttons.append(btn24)
+        buttons.append(btn25)
+
         ref = Database.database().reference()
+//
+//        handle = ref?.observe(.value, with: { snapshot in
+//            for child in snapshot.children {
+//                for button in self.buttons {
+//                    
+//                    let snap = child as! DataSnapshot
+//                    let dict = snap.value as! [String: String]
+//                
+//                    let team = dict["team"] as! Int
+//                    let word = dict["word"]
+//                    button.setTitle(word, for: .normal)
+//                    button.tag = team
+//                }
+//            }
+//        })
+
+//        handle = self.ref?.child("card").observe(.childAdded, with: { (snapshot) in
+//            let value = snapshot.value as? NSDictionary
+////            let word = value?["word"] as? String
+////            let team = value?["team"]
+////            self.btn2.setTitle(word, for: .normal)
+////            self.btn.tag = team as! Int
+//            print(value)
+//        })
         
-        let shuffledCards = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: cards)
-        
-        let shuffledTeams = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: teams)
-        
-        ref?.child("card").childByAutoId().setValue(["word": shuffledCards[0]])
-        btn.setTitle(shuffledCards[0] as? String, for: .normal); btn.tag = shuffledTeams[0] as! Int
-        handle = ref?.child("card").observe(.childAdded, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            let word = value?["word"] as? String
-            self.btn.setTitle(word, for: .normal)
-        })
-        
-        btn2.setTitle(shuffledCards[1] as? String, for: .normal); btn2.tag = shuffledTeams[1] as! Int
-        
-        btn3.setTitle(shuffledCards[2] as? String, for: .normal); btn3.tag = shuffledTeams[2] as! Int
 
-        btn4.setTitle(shuffledCards[3] as? String, for: .normal); btn4.tag = shuffledTeams[3] as! Int
-
-        btn5.setTitle(shuffledCards[4] as? String, for: .normal); btn5.tag = shuffledTeams[4] as! Int
-
-        btn6.setTitle(shuffledCards[5] as? String, for: .normal); btn6.tag = shuffledTeams[5] as! Int
-
-        btn7.setTitle(shuffledCards[6] as? String, for: .normal); btn7.tag = shuffledTeams[6] as! Int
-
-        btn8.setTitle(shuffledCards[7] as? String, for: .normal); btn8.tag = shuffledTeams[7] as! Int
-
-        btn9.setTitle(shuffledCards[8] as? String, for: .normal); btn9.tag = shuffledTeams[8] as! Int
-
-        btn10.setTitle(shuffledCards[9] as? String, for: .normal); btn10.tag = shuffledTeams[9] as! Int
-
-        btn11.setTitle(shuffledCards[10] as? String, for: .normal); btn11.tag = shuffledTeams[10] as! Int
-
-        btn12.setTitle(shuffledCards[11] as? String, for: .normal); btn12.tag = shuffledTeams[11] as! Int
-
-        btn13.setTitle(shuffledCards[12] as? String, for: .normal); btn13.tag = shuffledTeams[12] as! Int
-
-        btn14.setTitle(shuffledCards[13] as? String, for: .normal); btn14.tag = shuffledTeams[13] as! Int
-
-        btn15.setTitle(shuffledCards[14] as? String, for: .normal); btn15.tag = shuffledTeams[14] as! Int
-
-        btn16.setTitle(shuffledCards[15] as? String, for: .normal); btn16.tag = shuffledTeams[15] as! Int
-
-        btn17.setTitle(shuffledCards[16] as? String, for: .normal); btn17.tag = shuffledTeams[16] as! Int
-
-        btn18.setTitle(shuffledCards[17] as? String, for: .normal); btn18.tag = shuffledTeams[17] as! Int
-
-        btn19.setTitle(shuffledCards[18] as? String, for: .normal); btn19.tag = shuffledTeams[18] as! Int
-
-        btn20.setTitle(shuffledCards[19] as? String, for: .normal); btn20.tag = shuffledTeams[19] as! Int
-
-        btn21.setTitle(shuffledCards[20] as? String, for: .normal); btn21.tag = shuffledTeams[20] as! Int
-
-        btn22.setTitle(shuffledCards[21] as? String, for: .normal); btn22.tag = shuffledTeams[21] as! Int
-
-        btn23.setTitle(shuffledCards[22] as? String, for: .normal); btn23.tag = shuffledTeams[22] as! Int
-
-        btn24.setTitle(shuffledCards[23] as? String, for: .normal); btn24.tag = shuffledTeams[23] as! Int
-
-        btn25.setTitle(shuffledCards[24] as? String, for: .normal); btn25.tag = shuffledTeams[24] as! Int
+//        btn2.setTitle(shuffledCards[1] as? String, for: .normal); btn2.tag = shuffledTeams[1] as! Int
+//
+//        btn3.setTitle(shuffledCards[2] as? String, for: .normal); btn3.tag = shuffledTeams[2] as! Int
+//
+//        btn4.setTitle(shuffledCards[3] as? String, for: .normal); btn4.tag = shuffledTeams[3] as! Int
+//
+//        btn5.setTitle(shuffledCards[4] as? String, for: .normal); btn5.tag = shuffledTeams[4] as! Int
+//
+//        btn6.setTitle(shuffledCards[5] as? String, for: .normal); btn6.tag = shuffledTeams[5] as! Int
+//
+//        btn7.setTitle(shuffledCards[6] as? String, for: .normal); btn7.tag = shuffledTeams[6] as! Int
+//
+//        btn8.setTitle(shuffledCards[7] as? String, for: .normal); btn8.tag = shuffledTeams[7] as! Int
+//
+//        btn9.setTitle(shuffledCards[8] as? String, for: .normal); btn9.tag = shuffledTeams[8] as! Int
+//
+//        btn10.setTitle(shuffledCards[9] as? String, for: .normal); btn10.tag = shuffledTeams[9] as! Int
+//
+//        btn11.setTitle(shuffledCards[10] as? String, for: .normal); btn11.tag = shuffledTeams[10] as! Int
+//
+//        btn12.setTitle(shuffledCards[11] as? String, for: .normal); btn12.tag = shuffledTeams[11] as! Int
+//
+//        btn13.setTitle(shuffledCards[12] as? String, for: .normal); btn13.tag = shuffledTeams[12] as! Int
+//
+//        btn14.setTitle(shuffledCards[13] as? String, for: .normal); btn14.tag = shuffledTeams[13] as! Int
+//
+//        btn15.setTitle(shuffledCards[14] as? String, for: .normal); btn15.tag = shuffledTeams[14] as! Int
+//
+//        btn16.setTitle(shuffledCards[15] as? String, for: .normal); btn16.tag = shuffledTeams[15] as! Int
+//
+//        btn17.setTitle(shuffledCards[16] as? String, for: .normal); btn17.tag = shuffledTeams[16] as! Int
+//
+//        btn18.setTitle(shuffledCards[17] as? String, for: .normal); btn18.tag = shuffledTeams[17] as! Int
+//
+//        btn19.setTitle(shuffledCards[18] as? String, for: .normal); btn19.tag = shuffledTeams[18] as! Int
+//
+//        btn20.setTitle(shuffledCards[19] as? String, for: .normal); btn20.tag = shuffledTeams[19] as! Int
+//
+//        btn21.setTitle(shuffledCards[20] as? String, for: .normal); btn21.tag = shuffledTeams[20] as! Int
+//
+//        btn22.setTitle(shuffledCards[21] as? String, for: .normal); btn22.tag = shuffledTeams[21] as! Int
+//
+//        btn23.setTitle(shuffledCards[22] as? String, for: .normal); btn23.tag = shuffledTeams[22] as! Int
+//
+//        btn24.setTitle(shuffledCards[23] as? String, for: .normal); btn24.tag = shuffledTeams[23] as! Int
+//
+//        btn25.setTitle(shuffledCards[24] as? String, for: .normal); btn25.tag = shuffledTeams[24] as! Int
 
 //        btn2.setTitleColor(.red, for: .normal)
 //        btn.layer.borderWidth = 2.0;
