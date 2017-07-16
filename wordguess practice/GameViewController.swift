@@ -98,27 +98,41 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 //        print("*******")
 //        print(cardRef!)
 //        print("********")
-
-        handle = ref?.child("card").child("\(1)").observe(.value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            let word: String? = value!.object(forKey: "word") as? String
-            print(word!)
-            let team: Int? = value!.object(forKey: "team") as? Int
-            print(team!)
-            self.btn.setTitle(word, for: .normal)
-            self.btn.tag = team!
-        })
+        var index = 0
         
-        handle = ref?.child("card").child("\(2)").observe(.value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            let word: String? = value!.object(forKey: "word") as? String
-            print(word!)
-            let team: Int? = value!.object(forKey: "team") as? Int
-            print(team!)
-            self.btn2.setTitle(word, for: .normal)
-            self.btn2.tag = team!
-        })
-
+        for button in buttons {
+            handle = ref?.child("card").child("\(index)").observe(.value, with: { snapshot in
+                let value = snapshot.value as? NSDictionary
+                let word: String? = value!.object(forKey: "word") as? String
+                print(word!)
+                let team: Int? = value!.object(forKey: "team") as? Int
+                print(team!)
+                button.setTitle(word, for: .normal)
+                button.tag = team!
+            })
+            
+            index = index + 1
+        }
+//        handle = ref?.child("card").child("\(1)").observe(.value, with: { snapshot in
+//            let value = snapshot.value as? NSDictionary
+//            let word: String? = value!.object(forKey: "word") as? String
+//            print(word!)
+//            let team: Int? = value!.object(forKey: "team") as? Int
+//            print(team!)
+//            self.btn.setTitle(word, for: .normal)
+//            self.btn.tag = team!
+//        })
+//        
+//        handle = ref?.child("card").child("\(2)").observe(.value, with: { snapshot in
+//            let value = snapshot.value as? NSDictionary
+//            let word: String? = value!.object(forKey: "word") as? String
+//            print(word!)
+//            let team: Int? = value!.object(forKey: "team") as? Int
+//            print(team!)
+//            self.btn2.setTitle(word, for: .normal)
+//            self.btn2.tag = team!
+//        })
+//
 //        handle = self.ref?.child("card").observe(.childAdded, with: { (snapshot) in
 //            if let result = snapshot.children.allObjects as? [DataSnapshot] {
 //                print(result)
