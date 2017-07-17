@@ -18,6 +18,7 @@
 		1E603A461F0CA38100CFDF9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E603A451F0CA38100CFDF9F /* Assets.xcassets */; };
 		1E603A491F0CA38100CFDF9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E603A471F0CA38100CFDF9F /* LaunchScreen.storyboard */; };
 		1E770EC01F144815008FDA03 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E770EBF1F144815008FDA03 /* GoogleService-Info.plist */; };
+		1EA0063D1F1C3FE800B3161C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA0063C1F1C3FE800B3161C /* FirstViewController.swift */; };
 		C29CA80E7FFCB91B824E6735 /* Pods_wordguess_practice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE4387653CA13E75CAA6679 /* Pods_wordguess_practice.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		1E603A481F0CA38100CFDF9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E603A4A1F0CA38100CFDF9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E770EBF1F144815008FDA03 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1EA0063C1F1C3FE800B3161C /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		A5B0F9745E94A53651F9501E /* Pods-wordguess practice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wordguess practice.release.xcconfig"; path = "Pods/Target Support Files/Pods-wordguess practice/Pods-wordguess practice.release.xcconfig"; sourceTree = "<group>"; };
 		BB6E438A4B87D34722E1119C /* Pods-wordguess practice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wordguess practice.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wordguess practice/Pods-wordguess practice.debug.xcconfig"; sourceTree = "<group>"; };
 		FFE4387653CA13E75CAA6679 /* Pods_wordguess_practice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wordguess_practice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 				1E603A381F0CA38100CFDF9F /* AppDelegate.swift */,
 				1E4A41F61F194DD100E87BC3 /* Card.swift */,
 				1E4A41F41F194C8000E87BC3 /* GameState.swift */,
+				1EA0063C1F1C3FE800B3161C /* FirstViewController.swift */,
 				1E603A401F0CA38100CFDF9F /* GameViewController.swift */,
 				1E603A421F0CA38100CFDF9F /* Main.storyboard */,
 				1E603A451F0CA38100CFDF9F /* Assets.xcassets */,
@@ -236,6 +239,7 @@
 				1E603A3F1F0CA38100CFDF9F /* GameScene.swift in Sources */,
 				1E603A411F0CA38100CFDF9F /* GameViewController.swift in Sources */,
 				1E4A41F71F194DD100E87BC3 /* Card.swift in Sources */,
+				1EA0063D1F1C3FE800B3161C /* FirstViewController.swift in Sources */,
 				1E4A41F51F194C8000E87BC3 /* GameState.swift in Sources */,
 				1E603A391F0CA38100CFDF9F /* AppDelegate.swift in Sources */,
 			);

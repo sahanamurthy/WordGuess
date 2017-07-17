@@ -13,6 +13,7 @@ import FirebaseDatabase
 
 class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
+    var doThis:Bool = false
     var ref:DatabaseReference?
     var handle:DatabaseHandle?
     
@@ -55,8 +56,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var game = GameState()
-        game.createCards()
+        if doThis == true {
+            var game = GameState()
+            game.createCards()
+        }
         
         buttons.append(btn)
         buttons.append(btn2)
