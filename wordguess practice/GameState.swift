@@ -121,7 +121,8 @@ class GameState {
             
             let post = [
                 "word": shuffledCards[i],
-                "team": shuffledTeams[i]
+                "team": shuffledTeams[i],
+                "flipped": true
             ] as [String: Any]
             
             let cardsRef = ref?.child("card");

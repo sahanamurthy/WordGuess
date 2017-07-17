@@ -13,7 +13,7 @@ import Firebase
 class Card {
     var team:Int = 0
     var word:String = ""
-    var flipped: Bool = false
+    var flipped: Bool = true
     
     init(team: Int, word: String) {
         self.team = team
