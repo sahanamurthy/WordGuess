@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class FirstViewController: UIViewController {
+    
+    @IBOutlet weak var userLabel: UILabel!
     
     var whatToDo:Bool = false
     
@@ -30,7 +33,9 @@ class FirstViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        var currentUser = Auth.auth().currentUser?.email
+        userLabel.text = currentUser
         // Do any additional setup after loading the view.
     }
 

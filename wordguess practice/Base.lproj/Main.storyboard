@@ -108,10 +108,18 @@
                                     <action selector="newGame:" destination="dsx-e8-vMg" eventType="touchUpInside" id="k8T-fe-uZr"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="plP-dl-ksp">
+                                <rect key="frame" x="16" y="626" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="userLabel" destination="plP-dl-ksp" id="QeF-Pz-LQE"/>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="segue" id="jbe-Jr-2U0"/>
                     </connections>
                 </viewController>
@@ -439,6 +447,13 @@
                                     <outlet property="delegate" destination="BV1-FR-VrT" id="Ne1-Gj-3kI"/>
                                 </connections>
                             </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="049-1t-SZg">
+                                <rect key="frame" x="16" y="626" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
@@ -471,6 +486,7 @@
                         <outlet property="label" destination="Ehs-Wy-KYc" id="m0b-FC-Qjc"/>
                         <outlet property="txtInput" destination="Xfe-9Y-Xsf" id="9Qv-e9-unU"/>
                         <outlet property="txtOutput" destination="vqr-fF-joU" id="fwV-NH-2pa"/>
+                        <outlet property="userLabel" destination="049-1t-SZg" id="YCE-w0-UhG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

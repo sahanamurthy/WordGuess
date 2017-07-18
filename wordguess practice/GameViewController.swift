@@ -14,6 +14,8 @@ import FirebaseAuth
 
 class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
+    @IBOutlet weak var userLabel: UILabel!
+    
     var doThis:Bool = false
     var ref:DatabaseReference?
     var handle:DatabaseHandle?
@@ -56,7 +58,8 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(Auth.auth().currentUser?.email)
+        var currentUser = Auth.auth().currentUser?.email
+        userLabel.text = currentUser
         
         if doThis == true {
             var game = GameState()
