@@ -27,9 +27,11 @@ class LoginViewController: UIViewController {
                     }
                     else {
                         if let myError = error?.localizedDescription {
+                            self.createAlert(title: "Error", message: myError)
                             print(myError)
                         }
                         else {
+                            self.createAlert(title: "Error", message: "error")
                             print("ERROR")
                         }
                     }
@@ -44,9 +46,11 @@ class LoginViewController: UIViewController {
                     }
                     else {
                         if let myError = error?.localizedDescription {
+                            self.createAlert(title: "Error", message: myError)
                             print(myError)
                         }
                         else {
+                            self.createAlert(title: "Error", message: "error")
                             print("ERROR")
                         }
                     }
@@ -62,7 +66,17 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-
+    
+    func createAlert (title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
