@@ -55,7 +55,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if doThis == true {
             var game = GameState()
             game.createCards()
