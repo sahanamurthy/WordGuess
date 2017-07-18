@@ -122,9 +122,9 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         handle = ref?.child("card").observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
-            print("****")
-            print(snapshot)
-            print("****")
+//            print("****")
+//            print(snapshot)
+//            print("****")
             
             for button in self.buttons {
                 if button.isEnabled == false {
@@ -308,8 +308,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         } else if (sender == btn22) {
             index = 21
         }
-        
-        ref?.child("card").child("\(index)").child("flipped").setValue(false)
+        print(index!)
+//        let post = ["flipped": false] as [String: Any]
+        let cardsRef = ref?.child("card");
+        cardsRef?.child("\(index!)").updateChildValues(["flipped": false])
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
