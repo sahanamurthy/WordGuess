@@ -142,6 +142,15 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             }
 
         })
+        
+        handle = ref?.child("clue").queryLimited(toLast: 1).observe(.childAdded, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            let word: String? = value!.object(forKey: "word") as? String
+            let number: String? = value!.object(forKey: "number") as? String
+            self.txtOutput.text = word!
+            self.label.text = number!
+//            print(word)
+        })
 
         
         //        handle = ref?.child("card").child("\(1)").observe(.value, with: { snapshot in
@@ -337,6 +346,9 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func sendClue(_ sender: Any) {
+//        var ref:DatabaseReference?
+        ref = Database.database().reference()
+        
         if (txtInput.text! == "") {
             return
         }
@@ -344,11 +356,18 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         let clue = txtInput.text
         
         txtOutput.text = ""
-        txtOutput.text = clue
+//        txtOutput.text = clue
         txtInput.text = ""
         txtInput.resignFirstResponder()
+//        label.text = selectedNum
         
-        label.text = selectedNum
+        let post = [
+            "word": clue,
+            "number": selectedNum
+        ] as [String: Any]
+        
+        let cardsRef = ref?.child("clue");
+        cardsRef?.childByAutoId().setValue(post)
     }
     
     override var shouldAutorotate: Bool {
