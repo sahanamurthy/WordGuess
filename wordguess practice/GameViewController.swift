@@ -10,6 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
@@ -55,6 +56,8 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(Auth.auth().currentUser?.email)
+        
         if doThis == true {
             var game = GameState()
             game.createCards()
