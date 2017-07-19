@@ -60,11 +60,14 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         super.viewDidLoad()
         txtInput.placeholder = "Clue"
         var currentUser = Auth.auth().currentUser?.email
+        var currentUid = Auth.auth().currentUser?.uid
         userLabel.text = currentUser
         
         if doThis == true {
             var game = GameState()
             game.createCards()
+            game.createPlayers()
+            game.addPlayer()
         }
         
         buttons.append(btn)
@@ -107,6 +110,8 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 //        print("*******")
 //        print(cardRef!)
 //        print("********")
+        
+        
         var index = 0
         
         for button in buttons {
@@ -195,55 +200,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                 
 //        })
         
-
-//        btn2.setTitle(shuffledCards[1] as? String, for: .normal); btn2.tag = shuffledTeams[1] as! Int
-//
-//        btn3.setTitle(shuffledCards[2] as? String, for: .normal); btn3.tag = shuffledTeams[2] as! Int
-//
-//        btn4.setTitle(shuffledCards[3] as? String, for: .normal); btn4.tag = shuffledTeams[3] as! Int
-//
-//        btn5.setTitle(shuffledCards[4] as? String, for: .normal); btn5.tag = shuffledTeams[4] as! Int
-//
-//        btn6.setTitle(shuffledCards[5] as? String, for: .normal); btn6.tag = shuffledTeams[5] as! Int
-//
-//        btn7.setTitle(shuffledCards[6] as? String, for: .normal); btn7.tag = shuffledTeams[6] as! Int
-//
-//        btn8.setTitle(shuffledCards[7] as? String, for: .normal); btn8.tag = shuffledTeams[7] as! Int
-//
-//        btn9.setTitle(shuffledCards[8] as? String, for: .normal); btn9.tag = shuffledTeams[8] as! Int
-//
-//        btn10.setTitle(shuffledCards[9] as? String, for: .normal); btn10.tag = shuffledTeams[9] as! Int
-//
-//        btn11.setTitle(shuffledCards[10] as? String, for: .normal); btn11.tag = shuffledTeams[10] as! Int
-//
-//        btn12.setTitle(shuffledCards[11] as? String, for: .normal); btn12.tag = shuffledTeams[11] as! Int
-//
-//        btn13.setTitle(shuffledCards[12] as? String, for: .normal); btn13.tag = shuffledTeams[12] as! Int
-//
-//        btn14.setTitle(shuffledCards[13] as? String, for: .normal); btn14.tag = shuffledTeams[13] as! Int
-//
-//        btn15.setTitle(shuffledCards[14] as? String, for: .normal); btn15.tag = shuffledTeams[14] as! Int
-//
-//        btn16.setTitle(shuffledCards[15] as? String, for: .normal); btn16.tag = shuffledTeams[15] as! Int
-//
-//        btn17.setTitle(shuffledCards[16] as? String, for: .normal); btn17.tag = shuffledTeams[16] as! Int
-//
-//        btn18.setTitle(shuffledCards[17] as? String, for: .normal); btn18.tag = shuffledTeams[17] as! Int
-//
-//        btn19.setTitle(shuffledCards[18] as? String, for: .normal); btn19.tag = shuffledTeams[18] as! Int
-//
-//        btn20.setTitle(shuffledCards[19] as? String, for: .normal); btn20.tag = shuffledTeams[19] as! Int
-//
-//        btn21.setTitle(shuffledCards[20] as? String, for: .normal); btn21.tag = shuffledTeams[20] as! Int
-//
-//        btn22.setTitle(shuffledCards[21] as? String, for: .normal); btn22.tag = shuffledTeams[21] as! Int
-//
-//        btn23.setTitle(shuffledCards[22] as? String, for: .normal); btn23.tag = shuffledTeams[22] as! Int
-//
-//        btn24.setTitle(shuffledCards[23] as? String, for: .normal); btn24.tag = shuffledTeams[23] as! Int
-//
-//        btn25.setTitle(shuffledCards[24] as? String, for: .normal); btn25.tag = shuffledTeams[24] as! Int
-
 //        btn2.setTitleColor(.red, for: .normal)
 //        btn.layer.borderWidth = 2.0;
 //        btn.layer.borderColor = myColor.cgColor;
@@ -375,6 +331,17 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         let cardsRef = ref?.child("clue");
         cardsRef?.childByAutoId().setValue(post)
     }
+    
+//    func addPlayer(player: Any) {
+//        ref = Database.database().reference()
+//        
+//        let post = [
+//            "user" : player
+//        ] as [String: Any]
+//        
+//        let playerRef = ref?.child("players");
+//        playerRef?.child("\(player)").setValue(post)
+//    }
     
     override var shouldAutorotate: Bool {
         return true
