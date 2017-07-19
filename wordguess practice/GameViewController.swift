@@ -58,6 +58,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        txtInput.placeholder = "Clue"
         var currentUser = Auth.auth().currentUser?.email
         userLabel.text = currentUser
         
