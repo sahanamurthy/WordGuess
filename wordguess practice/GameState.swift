@@ -112,7 +112,6 @@ class GameState {
     }
     
     var ref:DatabaseReference?
-//    ref = Database.database().reference()
     
     func createCards() {
         ref = Database.database().reference()
@@ -163,13 +162,13 @@ class GameState {
         let handlePlayers = ref?.child("players").observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? [String : AnyObject]
             let something = value!["giver1"]?.object(forKey: "user") as? String
-            print(something!)
+//            print(something!)
             let something2 = value!["guesser1"]?.object(forKey: "user") as? String
-             print(something2!)
+//             print(something2!)
             let something3 = value!["giver2"]?.object(forKey: "user") as? String
-             print(something3!)
+//             print(something3!)
             let something4 = value!["guesser2"]?.object(forKey: "user") as? String
-             print(something4!)
+//             print(something4!)
             
             let word = "add"
             switch word {
@@ -188,27 +187,14 @@ class GameState {
             default:
                 return
             }
-//            labelpoint: if (something! == "add") {
-//                person = "giver1"
-//                break labelpoint
-//            } else if (something2! == "add") {
-//                person = "guesser1"
-//                break labelpoint
-//            } else if (something3! == "add") {
-//                person = "giver2"
-//                break labelpoint
-//            } else if (something4! == "add") {
-//                person = "guesser2"
-//                break labelpoint
-//            } else {
-//                return
-//            }
             print("PERSON \(person)")
             
             let playerRef = self.ref?.child("players");
             playerRef?.child("\(person)").updateChildValues(["user": "\(self.currentUid!)"])
+            
+            let countRef = self.ref?.child("players");
+            countRef?.child("uids").child(self.currentUid!).setValue("0")
             return
-//
         })
     }
 

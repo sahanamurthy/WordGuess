@@ -62,13 +62,19 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         var currentUser = Auth.auth().currentUser?.email
         var currentUid = Auth.auth().currentUser?.uid
         userLabel.text = currentUser
-        
+        ref = Database.database().reference()
+
         if doThis == true {
             var game = GameState()
             game.createCards()
             game.createPlayers()
             game.addPlayer()
         }
+        
+        var playerCount = 0
+        let handlePlayers = ref?.child("players").child("uids").observe(.value, with: { snapshot in
+            playerCount = Int(snapshot.childrenCount)
+        })
         
         buttons.append(btn)
         buttons.append(btn2)
@@ -96,20 +102,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         buttons.append(btn24)
         buttons.append(btn25)
 
-        ref = Database.database().reference()
-        
-//        ref?.observe(.value, with: { snapshot in
-//            print("*******")
-//            print(snapshot.value!)
-//            print("*******")
-//            
-//            let something = snapshot.value!
-//            print(something["card"][0])
-//        })
-//        let cardRef = ref?.child("card").child("\(1)")
-//        print("*******")
-//        print(cardRef!)
-//        print("********")
         
         
         var index = 0
@@ -118,11 +110,8 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             handle = ref?.child("card").child("\(index)").observe(.value, with: { snapshot in
                 let value = snapshot.value as? NSDictionary
                 let word: String? = value!.object(forKey: "word") as? String
-//                print(word!)
                 let team: Int? = value!.object(forKey: "team") as? Int
-//                print(team!)
                 let flipped: Bool? = value!.object(forKey: "flipped") as? Bool
-//                print(flipped!)
                 button.setTitle(word, for: .normal)
                 button.tag = team!
                 button.isEnabled = flipped!
@@ -133,9 +122,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         handle = ref?.child("card").observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
-//            print("****")
-//            print(snapshot)
-//            print("****")
             
             for button in self.buttons {
                 if button.isEnabled == false {
@@ -160,45 +146,8 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             let number: String? = value!.object(forKey: "number") as? String
             self.txtOutput.text = word!
             self.label.text = number!
-//            print(word)
         })
 
-        
-        //        handle = ref?.child("card").child("\(1)").observe(.value, with: { snapshot in
-//            let value = snapshot.value as? NSDictionary
-//            let word: String? = value!.object(forKey: "word") as? String
-//            print(word!)
-//            let team: Int? = value!.object(forKey: "team") as? Int
-//            print(team!)
-//            self.btn.setTitle(word, for: .normal)
-//            self.btn.tag = team!
-//        })
-//        
-//        handle = ref?.child("card").child("\(2)").observe(.value, with: { snapshot in
-//            let value = snapshot.value as? NSDictionary
-//            let word: String? = value!.object(forKey: "word") as? String
-//            print(word!)
-//            let team: Int? = value!.object(forKey: "team") as? Int
-//            print(team!)
-//            self.btn2.setTitle(word, for: .normal)
-//            self.btn2.tag = team!
-//        })
-//
-//        handle = self.ref?.child("card").observe(.childAdded, with: { (snapshot) in
-//            if let result = snapshot.children.allObjects as? [DataSnapshot] {
-//                print(result)
-//            }
-//                var word = result[1]
-//                print(word)
-        
-//            let value = snapshot.value as? NSDictionary
-////            let word = value?["word"] as? String
-////            let team = value?["team"]
-////            self.btn2.setTitle(word, for: .normal)
-////            self.btn.tag = team as! Int
-//            print(value)
-                
-//        })
         
 //        btn2.setTitleColor(.red, for: .normal)
 //        btn.layer.borderWidth = 2.0;
@@ -211,19 +160,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBAction func didTouchButton(_ sender: UIButton) {
         sender.isEnabled = false
-//        if (sender.tag == 1) {
-//            sender.setBackgroundImage(#imageLiteral(resourceName: "Purplecom"), for: .selected)
-////            sender.layer.backgroundColor = UIColor(red:0.75, green:0.56, blue:0.83, alpha:1.0).cgColor;
-//        } else if (sender.tag == 2) {
-//            sender.layer.backgroundColor = UIColor(red:0.95, green:0.47, blue:0.29, alpha:1.0).cgColor;
-//        } else if (sender.tag == 3) {
-//            sender.layer.backgroundColor = UIColor(red:0.99, green:0.89, blue:0.65, alpha:1.0).cgColor;
-//        } else if (sender.tag == 4) {
-//            sender.layer.backgroundColor = UIColor(red:0.42, green:0.48, blue:0.54, alpha:1.0).cgColor;
-//        }
-//        if sender.isEnabled == false {
-//            sender.setBackgroundImage(#imageLiteral(resourceName: "Purplecom"), for: .disabled)
-//        }
         var ref:DatabaseReference?
         ref = Database.database().reference()
         
@@ -280,7 +216,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             index = 21
         }
         print(index!)
-//        let post = ["flipped": false] as [String: Any]
         let cardsRef = ref?.child("card");
         cardsRef?.child("\(index!)").updateChildValues(["flipped": false])
     }
@@ -299,7 +234,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedNum = numbers[row]
-//        label.text = numbers[row]
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -308,7 +242,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func sendClue(_ sender: Any) {
-//        var ref:DatabaseReference?
         ref = Database.database().reference()
         
         if (txtInput.text! == "") {
@@ -318,10 +251,8 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         let clue = txtInput.text
         
         txtOutput.text = ""
-//        txtOutput.text = clue
         txtInput.text = ""
         txtInput.resignFirstResponder()
-//        label.text = selectedNum
         
         let post = [
             "word": clue,
@@ -331,17 +262,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         let cardsRef = ref?.child("clue");
         cardsRef?.childByAutoId().setValue(post)
     }
-    
-//    func addPlayer(player: Any) {
-//        ref = Database.database().reference()
-//        
-//        let post = [
-//            "user" : player
-//        ] as [String: Any]
-//        
-//        let playerRef = ref?.child("players");
-//        playerRef?.child("\(player)").setValue(post)
-//    }
     
     override var shouldAutorotate: Bool {
         return true
