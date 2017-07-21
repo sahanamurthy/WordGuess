@@ -26,6 +26,8 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var txtOutput: UITextView!
     @IBOutlet weak var txtInput: UITextField!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var sendBtn: UIButton!
     var selectedNum:String = ""
     
     var buttons: [UIButton] = [UIButton]()
@@ -67,6 +69,9 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        txtInput.isHidden = true
+        pickerView.isHidden = true
+        sendBtn.isHidden = true
         txtInput.placeholder = "Clue"
         userLabel.text = currentUser
         ref = Database.database().reference()
@@ -140,6 +145,9 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                             
                             if self.playerRole == "giver" {
                                 self.addButtonBorder()
+                                self.txtInput.isHidden = false
+                                self.pickerView.isHidden = false
+                                self.sendBtn.isHidden = false
                             }
                             
                             if self.playerTeam == 1 {

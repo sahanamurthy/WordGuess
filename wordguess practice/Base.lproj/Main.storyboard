@@ -481,6 +481,8 @@
                         <outlet property="btn8" destination="Puc-aH-Dm9" id="avQ-Wv-faf"/>
                         <outlet property="btn9" destination="Ip7-tT-YYz" id="QqA-gy-A8L"/>
                         <outlet property="label" destination="Ehs-Wy-KYc" id="m0b-FC-Qjc"/>
+                        <outlet property="pickerView" destination="2qI-Eq-4tP" id="evl-bI-5h1"/>
+                        <outlet property="sendBtn" destination="iUH-1F-S40" id="YRc-d8-4tG"/>
                         <outlet property="txtInput" destination="Xfe-9Y-Xsf" id="9Qv-e9-unU"/>
                         <outlet property="txtOutput" destination="vqr-fF-joU" id="fwV-NH-2pa"/>
                         <outlet property="userLabel" destination="049-1t-SZg" id="YCE-w0-UhG"/>
