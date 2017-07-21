@@ -14,6 +14,7 @@ import FirebaseAuth
 
 class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
+    @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
     
     var doThis:Bool = false
@@ -141,6 +142,12 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                                 self.addButtonBorder()
                             }
                             
+                            if self.playerTeam == 1 {
+                                self.addBackgroundBorder(1)
+                            } else if self.playerTeam == 2 {
+                                self.addBackgroundBorder(2)
+                            }
+                            
                             break
                         }
                         
@@ -182,7 +189,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                     } else if (button.tag == 2) {
                         button.setBackgroundImage(#imageLiteral(resourceName: "Orange"), for: .disabled)
                     } else if (button.tag == 3) {
-                        button.setBackgroundImage(#imageLiteral(resourceName: "Neutral"), for: .disabled)
+                        button.setBackgroundImage(#imageLiteral(resourceName: "cream"), for: .disabled)
                     } else if (button.tag == 4) {
                         button.setBackgroundImage(#imageLiteral(resourceName: "grey"), for: .disabled)
                     }
@@ -200,32 +207,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             self.label.text = number!
         })
 
-    }
-    
-    func checkNumberOfPlayers() {
-        let handleUids = ref?.child("players").child("uids").observe(.value, with: { snapshot in
-            self.playerCount = Int(snapshot.childrenCount)
-            print("Inside \(self.playerCount)")
-        })
-    }
-    
-    func isUserInGame(_ count:Int) {
-        var hasChild:Bool = false
-        let handleUids1 = self.ref?.child("players").child("uids").observeSingleEvent(of: .value, with: { snapshot in
-            for child in snapshot.children {
-                let childValue = child as! DataSnapshot
-                let newValue = childValue.value as? NSDictionary
-                let childUid: String? = newValue?.object(forKey: "user") as! String
-                if childUid! == self.currentUid  && count < 4 {
-                    print("Waiting for 4 players")
-                } else if (childUid! != self.currentUid && count < 4){
-                    self.addPlayer()
-                }
-                
-            }
-            
-        })
-        
     }
     
     func addPlayer() {
@@ -374,6 +355,17 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                 button.layer.borderColor = UIColor(red:0.08, green:0.06, blue:0.05, alpha:1.0).cgColor;
             }
             
+        }
+        
+    }
+    
+    func addBackgroundBorder(_ team:Int) {
+        if team == 1 {
+            self.backgroundImage.layer.borderWidth = 2.0;
+            self.backgroundImage.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:1.0).cgColor;
+        } else if team == 2 {
+            self.backgroundImage.layer.borderWidth = 2.0;
+            self.backgroundImage.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:1.0).cgColor;
         }
         
     }

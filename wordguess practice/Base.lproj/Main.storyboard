@@ -138,7 +138,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="white" translatesAutoresizingMaskIntoConstraints="NO" id="50N-Uw-sJ9">
-                                <rect key="frame" x="0.0" y="-11" width="375" height="678"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8aQ-Od-6Z2">
@@ -438,10 +438,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="samunummy" translatesAutoresizingMaskIntoConstraints="NO" id="AwG-c3-FPZ">
-                                <rect key="frame" x="8" y="0.0" width="141" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2qI-Eq-4tP">
                                 <rect key="frame" x="244" y="55" width="31" height="97"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -450,10 +446,15 @@
                                     <outlet property="delegate" destination="BV1-FR-VrT" id="Ne1-Gj-3kI"/>
                                 </connections>
                             </pickerView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="samunummy" translatesAutoresizingMaskIntoConstraints="NO" id="AwG-c3-FPZ">
+                                <rect key="frame" x="22" y="17" width="135" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                     <connections>
+                        <outlet property="backgroundImage" destination="50N-Uw-sJ9" id="1dr-8I-sQq"/>
                         <outlet property="btn" destination="8aQ-Od-6Z2" id="BxY-As-pa8"/>
                         <outlet property="btn10" destination="2jc-MZ-gEF" id="WcI-46-5KK"/>
                         <outlet property="btn11" destination="60B-Gw-rKi" id="LbH-2X-qL5"/>
