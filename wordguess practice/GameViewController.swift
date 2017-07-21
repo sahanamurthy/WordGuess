@@ -55,26 +55,154 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var btn24: UIButton!
     @IBOutlet weak var btn25: UIButton!
     
+    var currentUser = Auth.auth().currentUser?.email
+    var currentUid = Auth.auth().currentUser?.uid
+    var userInGame:Bool = false
+    var playerRole:String = ""
+    var playerTeam:Int = 0
+    var user:User? = nil
+    var playerCount = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         txtInput.placeholder = "Clue"
-        var currentUser = Auth.auth().currentUser?.email
-        var currentUid = Auth.auth().currentUser?.uid
         userLabel.text = currentUser
         ref = Database.database().reference()
-
+        
         if doThis == true {
             var game = GameState()
             game.createCards()
             game.createPlayers()
-            game.addPlayer()
+            self.addPlayer()
         }
         
-        var playerCount = 0
-        let handlePlayers = ref?.child("players").child("uids").observe(.value, with: { snapshot in
-            playerCount = Int(snapshot.childrenCount)
+        let handleUids = self.ref?.child("players").child("uids").observe(.value, with: { snapshot in
+            //            print(snapshot)
+            
+            self.playerCount = Int(snapshot.childrenCount)
+            print("Inside \(self.playerCount)")
+            
+            for child in snapshot.children {
+                let childValue = child as! DataSnapshot
+                print(childValue.key)
+                
+                if childValue.key == self.currentUid {
+                    self.userInGame = true
+                }
+            }
+            
+            if self.playerCount < 4 && self.userInGame == true {
+                print("Waiting for 4 players")
+                
+                self.user = User(uid: self.currentUid!)
+//                self.redrawUiElements()
+                
+            } else if (self.playerCount < 4 && self.userInGame == false) {
+                self.addPlayer()
+            } else if self.playerCount == 4 && self.userInGame == true {
+                print("Game is ready")
+            }
+            
         })
+        
+        // Check if player count is less than 4
+//        var playerCount = 0
+//        let handleUids = ref?.child("players").child("uids").observe(.value, with: { snapshot in
+//            playerCount = Int(snapshot.childrenCount)
+//            print(playerCount)
+//            
+//            // if playerCount < 4, check if player is included.
+//            
+//            // Check if user is included in player list.
+//            // If user is included, print "waiting for 4 players
+//            // Else, add user to player list
+//            if playerCount < 4 {
+//                var hasChild:Bool = false
+//                let handleUids1 = self.ref?.child("players").child("uids").observeSingleEvent(of: .value, with: { snapshot in
+//                    for child in snapshot.children {
+//                        let childValue = child as! DataSnapshot
+//                        let newValue = childValue.value as? NSDictionary
+//                        let childUid: String? = newValue?.object(forKey: "user") as! String
+//                        if childUid! == self.currentUid {
+//                            print("Waiting for 4 players")
+//                        } else {
+//                            self.addPlayer()
+//                        }
+//                        
+//                    }
+//                    
+//                })
+//
+//            } else if playerCount == 4 {
+//                let handleUids1 = self.ref?.child("players").child("uids").observeSingleEvent(of: .value, with: { snapshot in
+//                    for child in snapshot.children {
+//                        let childValue = child as! DataSnapshot
+//                        let newValue = childValue.value as? NSDictionary
+//                        let childUid: String? = newValue?.object(forKey: "user") as! String
+//                        if childUid! == self.currentUid {
+//                            print("Starting Game")
+//                        }
+//                        
+//                    }
+//                    
+//                })
+//
+//            }
+//        })
+
+
+//        var userInGame:Bool = false
+//        var playerRole:String = ""
+//        var playerTeam:Int = 0
+//
+//        let handlePlayers = ref?.child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
+//            for child in snapshot.children {
+//                let childValue = child as! DataSnapshot
+//                let newValue = childValue.value as? NSDictionary
+////                print("VALUE")
+////                print(newValue!)
+//                let uid: String? = newValue?.object(forKey: "user") as! String
+////                print(uid!)
+//                if uid! == currentUid {
+//                    userInGame = true
+//                    let role: String? = newValue?.object(forKey: "role") as! String
+//                    playerRole = role!
+//                    let team: Int? = newValue?.object(forKey: "team") as! Int
+//                    playerTeam = team!
+//                    break
+//                }
+//            }
+//        })
+//
+//        let handlePlayers = ref?.child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
+//            for child in snapshot.children {
+//                let childValue = child as! DataSnapshot
+//                let newValue = childValue.value as? NSDictionary
+//                //                print("VALUE")
+//                //                print(newValue!)
+//                let uid: String? = newValue?.object(forKey: "user") as! String
+//                print(uid!)
+//                if uid! == self.currentUid {
+//                    self.userInGame = true
+//                    let role: String? = newValue?.object(forKey: "role") as! String
+//                    print(role!)
+//                    let team: Int? = newValue?.object(forKey: "team") as! Int
+//                    print(team!)
+//                    self.user = User(uid: uid!, role: role!, team: team!)
+////                    self.userInfo(role: role!, team: team!)
+//                    break
+//                }
+//                
+//            }
+//        })
+//
+//        print("****")
+//        print(userInGame)
+//        print(playerRole)
+//        print(playerTeam)
+//        print(self.user)
+//        print("****")
         
         buttons.append(btn)
         buttons.append(btn2)
@@ -157,6 +285,119 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 
     }
     
+    func checkNumberOfPlayers() {
+        let handleUids = ref?.child("players").child("uids").observe(.value, with: { snapshot in
+            self.playerCount = Int(snapshot.childrenCount)
+            print("Inside \(self.playerCount)")
+        })
+    }
+    
+    func isUserInGame(_ count:Int) {
+        var hasChild:Bool = false
+        let handleUids1 = self.ref?.child("players").child("uids").observeSingleEvent(of: .value, with: { snapshot in
+            for child in snapshot.children {
+                let childValue = child as! DataSnapshot
+                let newValue = childValue.value as? NSDictionary
+                let childUid: String? = newValue?.object(forKey: "user") as! String
+                if childUid! == self.currentUid  && count < 4 {
+                    print("Waiting for 4 players")
+                } else if (childUid! != self.currentUid && count < 4){
+                    self.addPlayer()
+                }
+                
+            }
+            
+        })
+        
+    }
+    
+//    func isUserInGame() -> Bool {
+//        print("top of isUserInGame()")
+//        var returnTrue = false
+//        let handlePlayers = ref?.child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
+//            for child in snapshot.children {
+//                let childValue = child as! DataSnapshot
+//                let newValue = childValue.value as? NSDictionary
+//                //                print("VALUE")
+//                //                print(newValue!)
+//                let uid: String? = newValue?.object(forKey: "user") as! String
+//                                print(uid!)
+//                if uid! == self.currentUid {
+//                    self.userInGame = true
+//                    let role: String? = newValue?.object(forKey: "role") as! String
+//                    self.playerRole = role!
+//                    let team: Int? = newValue?.object(forKey: "team") as! Int
+//                    self.playerTeam = team!
+//                    returnTrue = true
+//                    break
+////                    return true
+//                }
+//
+//            }
+//        })
+////        
+////        if returnTrue == true {
+////            return true
+////        } else {
+////            return false 
+////        }
+//        print("bottom of isUserInGame, returning \(returnTrue)")
+//        return returnTrue
+//    }
+    
+//    func userInfo(role: String, team: Int) {
+//        print("In user info")
+//        self.playerRole = role
+//        self.playerTeam = team
+//    }
+//    
+    
+    func addPlayer() {
+        ref = Database.database().reference()
+        var person = ""
+        
+        let handlePlayers = ref?.child("players").observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? [String : AnyObject]
+            let something = value!["giver1"]?.object(forKey: "user") as? String
+            //            print(something!)
+            let something2 = value!["guesser1"]?.object(forKey: "user") as? String
+            //             print(something2!)
+            let something3 = value!["giver2"]?.object(forKey: "user") as? String
+            //             print(something3!)
+            let something4 = value!["guesser2"]?.object(forKey: "user") as? String
+            //             print(something4!)
+            
+            let word = "add"
+            switch word {
+            case something!:
+                person = "giver1"
+                break
+            case something2!:
+                person = "guesser1"
+                break
+            case something3!:
+                person = "giver2"
+                break
+            case something4!:
+                person = "guesser2"
+                break
+            default:
+                return
+            }
+            print("PERSON \(person)")
+            
+            let playerRef = self.ref?.child("players");
+            playerRef?.child("\(person)").updateChildValues(["user": "\(self.currentUid!)"])
+            
+            let countRef = self.ref?.child("players");
+            countRef?.child("uids").child(self.currentUid!).setValue("0")
+            return
+        })
+    }
+    
+    func checkUserInGame(count:Int) {
+        print("in checkUserInGame")
+    }
     
     @IBAction func didTouchButton(_ sender: UIButton) {
         sender.isEnabled = false
