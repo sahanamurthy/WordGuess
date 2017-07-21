@@ -342,16 +342,16 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func addButtonBorder() {
         for button in self.buttons {
             if button.tag == 1 {
-                button.layer.borderWidth = 2.0;
-                button.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:1.0).cgColor;
+                button.layer.borderWidth = 1.5;
+                button.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:0.75).cgColor;
             } else if (button.tag == 2) {
-                button.layer.borderWidth = 2.0;
+                button.layer.borderWidth = 1.5;
                 button.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:1.0).cgColor;
             } else if (button.tag == 3) {
-                button.layer.borderWidth = 2.0;
+                button.layer.borderWidth = 1.5;
                 button.layer.borderColor = UIColor(red:0.99, green:0.89, blue:0.65, alpha:1.0).cgColor;
             } else if (button.tag == 4) {
-                button.layer.borderWidth = 2.0;
+                button.layer.borderWidth = 1.5;
                 button.layer.borderColor = UIColor(red:0.08, green:0.06, blue:0.05, alpha:1.0).cgColor;
             }
             
@@ -362,10 +362,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func addBackgroundBorder(_ team:Int) {
         if team == 1 {
             self.backgroundImage.layer.borderWidth = 2.0;
-            self.backgroundImage.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:1.0).cgColor;
+            self.backgroundImage.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:0.75).cgColor;
         } else if team == 2 {
             self.backgroundImage.layer.borderWidth = 2.0;
-            self.backgroundImage.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:1.0).cgColor;
+            self.backgroundImage.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:0.75).cgColor;
         }
         
     }
