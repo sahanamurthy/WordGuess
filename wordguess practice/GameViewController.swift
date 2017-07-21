@@ -70,6 +70,33 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         userLabel.text = currentUser
         ref = Database.database().reference()
         
+        buttons.append(btn)
+        buttons.append(btn2)
+        buttons.append(btn3)
+        buttons.append(btn4)
+        buttons.append(btn5)
+        buttons.append(btn6)
+        buttons.append(btn7)
+        buttons.append(btn8)
+        buttons.append(btn9)
+        buttons.append(btn10)
+        buttons.append(btn11)
+        buttons.append(btn12)
+        buttons.append(btn13)
+        buttons.append(btn14)
+        buttons.append(btn15)
+        buttons.append(btn16)
+        buttons.append(btn17)
+        buttons.append(btn18)
+        buttons.append(btn19)
+        buttons.append(btn20)
+        buttons.append(btn21)
+        buttons.append(btn22)
+        buttons.append(btn23)
+        buttons.append(btn24)
+        buttons.append(btn25)
+
+        
         if doThis == true {
             var game = GameState()
             game.createCards()
@@ -95,8 +122,37 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             if self.playerCount < 4 && self.userInGame == true {
                 print("Waiting for 4 players")
                 
-                self.user = User(uid: self.currentUid!)
-//                self.redrawUiElements()
+                let handlePlayers = self.ref?.child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
+                    for child in snapshot.children {
+                        let childValue = child as! DataSnapshot
+                        let newValue = childValue.value as? NSDictionary
+                        //                print("VALUE")
+                        //                print(newValue!)
+                        let uid: String? = newValue?.object(forKey: "user") as! String
+                        print(uid!)
+                        if uid! == self.currentUid {
+                            
+                            self.playerRole = newValue?.object(forKey: "role") as! String
+                            print(self.playerRole)
+                            self.playerTeam = newValue?.object(forKey: "team") as! Int
+                            print(self.playerTeam)
+                            
+                            if self.playerRole == "giver" {
+                                self.addButtonBorder()
+                            }
+                            
+                            break
+                        }
+                        
+                    }
+                    
+                })
+
+//                self.user = User(uid: self.currentUid!)
+                
+//                print(self.user?.team)
+//                print(self.user?.role)
+//                print(self.user?.uid)
                 
             } else if (self.playerCount < 4 && self.userInGame == false) {
                 self.addPlayer()
@@ -203,33 +259,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 //        print(playerTeam)
 //        print(self.user)
 //        print("****")
-        
-        buttons.append(btn)
-        buttons.append(btn2)
-        buttons.append(btn3)
-        buttons.append(btn4)
-        buttons.append(btn5)
-        buttons.append(btn6)
-        buttons.append(btn7)
-        buttons.append(btn8)
-        buttons.append(btn9)
-        buttons.append(btn10)
-        buttons.append(btn11)
-        buttons.append(btn12)
-        buttons.append(btn13)
-        buttons.append(btn14)
-        buttons.append(btn15)
-        buttons.append(btn16)
-        buttons.append(btn17)
-        buttons.append(btn18)
-        buttons.append(btn19)
-        buttons.append(btn20)
-        buttons.append(btn21)
-        buttons.append(btn22)
-        buttons.append(btn23)
-        buttons.append(btn24)
-        buttons.append(btn25)
-
         
         
         var index = 0
@@ -480,6 +509,26 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         txtInput.resignFirstResponder()
         return false
+    }
+    
+    func addButtonBorder() {
+        for button in self.buttons {
+            if button.tag == 1 {
+                button.layer.borderWidth = 2.0;
+                button.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:1.0).cgColor;
+            } else if (button.tag == 2) {
+                button.layer.borderWidth = 2.0;
+                button.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:1.0).cgColor;
+            } else if (button.tag == 3) {
+                button.layer.borderWidth = 2.0;
+                button.layer.borderColor = UIColor(red:0.99, green:0.89, blue:0.65, alpha:1.0).cgColor;
+            } else if (button.tag == 4) {
+                button.layer.borderWidth = 2.0;
+                button.layer.borderColor = UIColor(red:0.08, green:0.06, blue:0.05, alpha:1.0).cgColor;
+            }
+            
+        }
+        
     }
     
     @IBAction func sendClue(_ sender: Any) {
