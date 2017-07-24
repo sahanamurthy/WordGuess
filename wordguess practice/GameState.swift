@@ -131,6 +131,9 @@ class GameState {
             let cardsRef = ref?.child("card");
             cardsRef?.child("\(index)").setValue(post)
         }
+        
+        // If unable to create multiple games, delete clues
+        //        let deleteRef = ref?.child("clue").removeValue()
     }
     
     func createPlayers() {
@@ -153,6 +156,9 @@ class GameState {
             
             index = index + 1
         }
+        
+        // If unable to create several games, delete UIDs
+//        let deleteRef = ref?.child("players").child("uids").removeValue()
     }
 
 }
