@@ -135,6 +135,11 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             if self.playerCount < 4 && self.userInGame == true {
                 self.createAlert(title: "Almost there", message: "Waiting for 4 players")
                 
+            } else if (self.playerCount < 4 && self.userInGame == false) {
+                self.addPlayer()
+            } else if self.playerCount == 4 && self.userInGame == true {
+                print("Game is ready")
+                
                 let handlePlayers = self.ref?.child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
                     for child in snapshot.children {
                         let childValue = child as! DataSnapshot
@@ -142,13 +147,13 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                         //                print("VALUE")
                         //                print(newValue!)
                         let uid: String? = newValue?.object(forKey: "user") as! String
-//                        print(uid!)
+                        //                        print(uid!)
                         if uid! == self.currentUid {
                             
                             self.playerRole = newValue?.object(forKey: "role") as! String
-//                            print(self.playerRole)
+                            //                            print(self.playerRole)
                             self.playerTeam = newValue?.object(forKey: "team") as! Int
-//                            print(self.playerTeam)
+                            //                            print(self.playerTeam)
                             
                             if self.playerRole == "giver" {
                                 self.addButtonBorder()
@@ -172,12 +177,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                     }
                     
                 })
-                
-                
-            } else if (self.playerCount < 4 && self.userInGame == false) {
-                self.addPlayer()
-            } else if self.playerCount == 4 && self.userInGame == true {
-                print("Game is ready")
+
             }
             
         })
