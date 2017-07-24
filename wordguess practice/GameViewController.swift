@@ -69,8 +69,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var user:User? = nil
     var playerCount = 0
 
-    var purpleCounter = 0
-    var orangeCounter = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +112,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             game.createCards()
             game.createPlayers()
             self.addPlayer()
-            let turnRef = ref?.child("turn").setValue("Purple team clue giver");
+            let turnRef = ref?.child("turn").setValue("Purple clue giver");
         }
         
         let handleUids = self.ref?.child("players").child("uids").observe(.value, with: { snapshot in
@@ -170,7 +168,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                                 self.addBackgroundBorder(2)
                             }
                             
-                            self.createAlert(title: "Info", message: "You are the \(self.playerRole) for team \(self.playerTeam)")
+                            self.createAlert(title: "Info", message: "You are the \(self.playerRole) for team \(self.playerTeam). Team 1: Purple. Team 2: Orange.")
                             break
                         }
                         
@@ -207,6 +205,8 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         handle = ref?.child("card").observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
+            var purpleFlipped = true
+            var orangeFlipped = true
             
             for button in self.buttons {
                 if button.isEnabled == false {
@@ -222,6 +222,22 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                     }
                     
                 }
+                
+                if button.tag == 1 && button.isEnabled == true {
+                    purpleFlipped = false
+                }
+                
+                if button.tag == 2 && button.isEnabled == true {
+                    orangeFlipped = false
+                }
+                
+            }
+//            print("FLIPPED")
+//            print(purpleFlipped)
+//            print(orangeFlipped)
+//            print("FLIPPED")
+            if purpleFlipped == true || orangeFlipped == true {
+                self.endGame()
             }
 
         })
@@ -291,13 +307,13 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             let turnRef = self.ref?.child("turn");
             
             if something == "giver1" {
-                turnRef?.setValue("Purple team guesser")
+                turnRef?.setValue("Purple guesser")
             } else if something == "guesser1" {
-                turnRef?.setValue("Orange team clue giver")
+                turnRef?.setValue("Orange clue giver")
             } else if something == "giver2" {
-                turnRef?.setValue("Orange team guesser")
+                turnRef?.setValue("Orange guesser")
             } else if something == "guesser2" {
-                turnRef?.setValue("Purple team clue giver")
+                turnRef?.setValue("Purple clue giver")
             }
             
         })
@@ -410,10 +426,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func addBackgroundBorder(_ team:Int) {
         if team == 1 {
             self.backgroundImage.layer.borderWidth = 2.0;
-            self.backgroundImage.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:0.80).cgColor;
+            self.backgroundImage.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:1.0).cgColor;
         } else if team == 2 {
             self.backgroundImage.layer.borderWidth = 2.0;
-            self.backgroundImage.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:0.75).cgColor;
+            self.backgroundImage.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:1.0).cgColor;
         }
         
     }
