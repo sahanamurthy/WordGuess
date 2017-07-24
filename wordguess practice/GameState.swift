@@ -154,49 +154,6 @@ class GameState {
             index = index + 1
         }
     }
-    
-//    func addPlayer() {
-//        ref = Database.database().reference()
-//        var person = ""
-//            
-//        let handlePlayers = ref?.child("players").observeSingleEvent(of: .value, with: { snapshot in
-//            let value = snapshot.value as? [String : AnyObject]
-//            let something = value!["giver1"]?.object(forKey: "user") as? String
-////            print(something!)
-//            let something2 = value!["guesser1"]?.object(forKey: "user") as? String
-////             print(something2!)
-//            let something3 = value!["giver2"]?.object(forKey: "user") as? String
-////             print(something3!)
-//            let something4 = value!["guesser2"]?.object(forKey: "user") as? String
-////             print(something4!)
-//            
-//            let word = "add"
-//            switch word {
-//            case something!:
-//                person = "giver1"
-//                break
-//            case something2!:
-//                person = "guesser1"
-//                break
-//            case something3!:
-//                person = "giver2"
-//                break
-//            case something4!:
-//                person = "guesser2"
-//                break
-//            default:
-//                return
-//            }
-//            print("PERSON \(person)")
-//            
-//            let playerRef = self.ref?.child("players");
-//            playerRef?.child("\(person)").updateChildValues(["user": "\(self.currentUid!)"])
-//            
-//            let countRef = self.ref?.child("players");
-//            countRef?.child("uids").child(self.currentUid!).setValue("0")
-//            return
-//        })
-//    }
 
 }
 

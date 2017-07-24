@@ -28,6 +28,9 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var sendBtn: UIButton!
+    @IBOutlet weak var doneBtn: UIButton!
+    @IBOutlet weak var turnLabel: UILabel!
+    
     var selectedNum:String = ""
     
     var buttons: [UIButton] = [UIButton]()
@@ -66,12 +69,15 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var user:User? = nil
     var playerCount = 0
 
+    var purpleCounter = 0
+    var orangeCounter = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         txtInput.isHidden = true
         pickerView.isHidden = true
         sendBtn.isHidden = true
+        doneBtn.isHidden = true 
         txtInput.placeholder = "Clue"
         userLabel.text = currentUser
         ref = Database.database().reference()
@@ -108,6 +114,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             game.createCards()
             game.createPlayers()
             self.addPlayer()
+            let turnRef = ref?.child("turn").setValue("Purple team clue giver");
         }
         
         let handleUids = self.ref?.child("players").child("uids").observe(.value, with: { snapshot in
@@ -126,7 +133,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             }
             
             if self.playerCount < 4 && self.userInGame == true {
-                print("Waiting for 4 players")
+                self.createAlert(title: "Almost there", message: "Waiting for 4 players")
                 
                 let handlePlayers = self.ref?.child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
                     for child in snapshot.children {
@@ -135,19 +142,21 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                         //                print("VALUE")
                         //                print(newValue!)
                         let uid: String? = newValue?.object(forKey: "user") as! String
-                        print(uid!)
+//                        print(uid!)
                         if uid! == self.currentUid {
                             
                             self.playerRole = newValue?.object(forKey: "role") as! String
-                            print(self.playerRole)
+//                            print(self.playerRole)
                             self.playerTeam = newValue?.object(forKey: "team") as! Int
-                            print(self.playerTeam)
+//                            print(self.playerTeam)
                             
                             if self.playerRole == "giver" {
                                 self.addButtonBorder()
                                 self.txtInput.isHidden = false
                                 self.pickerView.isHidden = false
                                 self.sendBtn.isHidden = false
+                            } else if self.playerRole == "guesser" {
+                                self.doneBtn.isHidden = false
                             }
                             
                             if self.playerTeam == 1 {
@@ -156,12 +165,14 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                                 self.addBackgroundBorder(2)
                             }
                             
+                            self.createAlert(title: "Info", message: "You are the \(self.playerRole) for team \(self.playerTeam)")
                             break
                         }
                         
                     }
                     
                 })
+                
                 
             } else if (self.playerCount < 4 && self.userInGame == false) {
                 self.addPlayer()
@@ -170,7 +181,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             }
             
         })
-        
+
         var index = 0
         
         for button in buttons {
@@ -187,6 +198,13 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             index = index + 1
         }
         
+        let turnHandle = ref?.child("turn").observe(.value, with: { snapshot in
+            print("TURN")
+            print(snapshot.value!)
+            print("TURN")
+            self.turnLabel.text = snapshot.value! as! String
+        })
+        
         handle = ref?.child("card").observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             
@@ -200,6 +218,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                         button.setBackgroundImage(#imageLiteral(resourceName: "cream"), for: .disabled)
                     } else if (button.tag == 4) {
                         button.setBackgroundImage(#imageLiteral(resourceName: "grey"), for: .disabled)
+                        self.endGame()
                     }
                     
                 }
@@ -249,19 +268,40 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             default:
                 return
             }
-            print("PERSON \(person)")
+//            print("PERSON \(person)")
             
             let playerRef = self.ref?.child("players");
             playerRef?.child("\(person)").updateChildValues(["user": "\(self.currentUid!)"])
             
             let countRef = self.ref?.child("players");
-            countRef?.child("uids").child(self.currentUid!).setValue("0")
+            countRef?.child("uids").child(self.currentUid!).setValue(person)
             return
         })
     }
     
-    func checkUserInGame(count:Int) {
-        print("in checkUserInGame")
+    @IBAction func doneBtn(_ sender: UIButton) {
+        doneWithTurn()
+    }
+
+    func doneWithTurn() {
+        let handleTurn = ref?.child("players").child("uids").queryOrdered(byChild: "\(self.currentUid)").observe(.value, with: {snapshot in
+            let valueSnap = snapshot.value as? NSDictionary
+            let something:String = valueSnap?.value(forKey: self.currentUid!) as? AnyObject as! String
+            
+            let turnRef = self.ref?.child("turn");
+            
+            if something == "giver1" {
+                turnRef?.setValue("Purple team guesser")
+            } else if something == "guesser1" {
+                turnRef?.setValue("Orange team clue giver")
+            } else if something == "giver2" {
+                turnRef?.setValue("Orange team guesser")
+            } else if something == "guesser2" {
+                turnRef?.setValue("Purple team clue giver")
+            }
+            
+        })
+
     }
     
     @IBAction func didTouchButton(_ sender: UIButton) {
@@ -351,7 +391,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         for button in self.buttons {
             if button.tag == 1 {
                 button.layer.borderWidth = 1.5;
-                button.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:0.75).cgColor;
+                button.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:0.80).cgColor;
             } else if (button.tag == 2) {
                 button.layer.borderWidth = 1.5;
                 button.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:1.0).cgColor;
@@ -370,12 +410,26 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func addBackgroundBorder(_ team:Int) {
         if team == 1 {
             self.backgroundImage.layer.borderWidth = 2.0;
-            self.backgroundImage.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:0.75).cgColor;
+            self.backgroundImage.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:0.80).cgColor;
         } else if team == 2 {
             self.backgroundImage.layer.borderWidth = 2.0;
             self.backgroundImage.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:0.75).cgColor;
         }
         
+    }
+    
+    func endGame() {
+        self.createAlert(title: "Game Over!", message: "The game is over!")
+    }
+    
+    func createAlert (title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func sendClue(_ sender: Any) {
@@ -398,6 +452,9 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         let cardsRef = ref?.child("clue");
         cardsRef?.childByAutoId().setValue(post)
+        
+        doneWithTurn()
+        
     }
     
     override var shouldAutorotate: Bool {
