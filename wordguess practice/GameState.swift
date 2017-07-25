@@ -112,6 +112,27 @@ class GameState {
     }
     
     var ref:DatabaseReference?
+    var handle:DatabaseHandle?
+    
+    //////////////////////////////////////////////////////////
+    func newGame() {
+        ref = Database.database().reference()
+        let handleGames = self.ref?.child("game").queryLimited(toLast: 1).observe(.value, with: {snapshot in
+            if !snapshot.exists() {
+                let gamesRef = self.ref?.child("game");
+                gamesRef?.child("1").setValue("1")
+            } else {
+                let handleLatestGame = self.ref?.child("game").queryLimited(toLast: 1).observe(.value, with: {snapshot in
+                    var value = snapshot.value as! NSArray
+                    let num = ((value[1]) as AnyObject).integerValue
+                    var newNum = num! + 1
+                    print(newNum)
+                })
+            }
+            
+        })
+    }
+    //////////////////////////////////////////////////////////
     
     func createCards() {
         ref = Database.database().reference()
@@ -128,6 +149,7 @@ class GameState {
                 "flipped": true
             ] as [String: Any]
             
+            // Needs to be updated
             let cardsRef = ref?.child("card");
             cardsRef?.child("\(index)").setValue(post)
         }
@@ -151,6 +173,7 @@ class GameState {
                 "user": "add"
             ] as [String: Any]
             
+            // Needs to be updated
             let playersRef = ref?.child("players");
             playersRef?.child("\(player)").setValue(post)
             
