@@ -68,6 +68,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var playerTeam:Int = 0
     var user:User? = nil
     var playerCount = 0
+    var gameID:String = ""
 
     
     override func viewDidLoad() {
@@ -105,23 +106,26 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         buttons.append(btn23)
         buttons.append(btn24)
         buttons.append(btn25)
-
-         // Needs to be updated
-        if doThis == true {
-            var game = GameState()
-            game.newGame()
-            print("GAME NUM")
-//            print(num)
-            print(game.gameNum)
-            print("GAME NUM")
-            game.createCards()
-            game.createPlayers()
-            self.addPlayer()
-            let turnRef = ref?.child("turn").setValue("Purple clue giver");
-        }
+        
+//        var numberOfGame:Int = 0
         
          // Needs to be updated
-        let handleUids = self.ref?.child("players").child("uids").observe(.value, with: { snapshot in
+//        if doThis == true {
+//            var game = GameState()
+//            game.newGame()
+//            let num = game.gameNum
+//            print("GAME NUM")
+//                        print(num)
+//            print(numberOfGame)
+//            print("GAME NUM")
+            //            game.createCards()
+            //            game.createPlayers()
+            //            self.addPlayer()
+            //            let turnRef = ref?.child("turn").setValue("Purple clue giver");
+//        }
+        
+         // Needs to be updated
+        let handleUids = self.ref?.child("game").child("\(gameID)").child("players").child("uids").observe(.value, with: { snapshot in
             //            print(snapshot)
             
             self.playerCount = Int(snapshot.childrenCount)
@@ -144,7 +148,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             } else if self.playerCount == 4 && self.userInGame == true {
 //                print("Game is ready")
                 
-                let handlePlayers = self.ref?.child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
+                let handlePlayers = self.ref?.child("game").child("\(self.gameID)").child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
                     for child in snapshot.children {
                         let childValue = child as! DataSnapshot
                         let newValue = childValue.value as? NSDictionary
@@ -190,7 +194,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
          // Needs to be updated
         for button in buttons {
-            handle = ref?.child("card").child("\(index)").observe(.value, with: { snapshot in
+            handle = ref?.child("game").child("\(gameID)").child("card").child("\(index)").observe(.value, with: { snapshot in
                 let value = snapshot.value as? NSDictionary
                 let word: String? = value!.object(forKey: "word") as? String
                 let team: Int? = value!.object(forKey: "team") as? Int
@@ -204,7 +208,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         }
         
          // Needs to be updated
-        let turnHandle = ref?.child("turn").observe(.value, with: { snapshot in
+        let turnHandle = ref?.child("game").child("\(gameID)").child("turn").observe(.value, with: { snapshot in
 //            print("TURN")
 //            print(snapshot.value!)
 //            print("TURN")
@@ -212,7 +216,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         })
         
          // Needs to be updated
-        handle = ref?.child("card").observe(.value, with: { snapshot in
+        handle = ref?.child("game").child("\(gameID)").child("card").observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             var purpleFlipped = true
             var orangeFlipped = true
@@ -252,7 +256,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         })
         
          // Needs to be updated
-        handle = ref?.child("clue").queryLimited(toLast: 1).observe(.childAdded, with: { snapshot in
+        handle = ref?.child("game").child("\(gameID)").child("clue").queryLimited(toLast: 1).observe(.childAdded, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             let word: String? = value!.object(forKey: "word") as? String
             let number: String? = value!.object(forKey: "number") as? String
@@ -267,7 +271,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         var person = ""
         
          // Needs to be updated
-        let handlePlayers = ref?.child("players").observeSingleEvent(of: .value, with: { snapshot in
+        let handlePlayers = ref?.child("game").child("\(gameID)").child("players").observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? [String : AnyObject]
             let something = value!["giver1"]?.object(forKey: "user") as? String
             //            print(something!)
@@ -298,11 +302,11 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 //            print("PERSON \(person)")
             
              // Needs to be updated
-            let playerRef = self.ref?.child("players");
+            let playerRef = self.ref?.child("game").child("\(self.gameID)").child("players");
             playerRef?.child("\(person)").updateChildValues(["user": "\(self.currentUid!)"])
             
              // Needs to be updated
-            let countRef = self.ref?.child("players");
+            let countRef = self.ref?.child("game").child("\(self.gameID)").child("players");
             countRef?.child("uids").child(self.currentUid!).setValue(person)
             return
         })
@@ -314,7 +318,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 
     func doneWithTurn() {
          // Needs to be updated
-        let handleTurn = ref?.child("players").child("uids").queryOrdered(byChild: "\(self.currentUid)").observe(.value, with: {snapshot in
+        let handleTurn = ref?.child("game").child("\(gameID)").child("players").child("uids").queryOrdered(byChild: "\(self.currentUid)").observe(.value, with: {snapshot in
             let valueSnap = snapshot.value as? NSDictionary
             let something:String = valueSnap?.value(forKey: self.currentUid!) as? AnyObject as! String
             
@@ -394,7 +398,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 //        print(index!)
         
          // Needs to be updated
-        let cardsRef = ref?.child("card");
+        let cardsRef = ref?.child("game").child("\(gameID)").child("card");
         cardsRef?.child("\(index!)").updateChildValues(["flipped": false])
     }
     
@@ -483,7 +487,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         ] as [String: Any]
         
          // Needs to be updated
-        let cardsRef = ref?.child("clue");
+        let cardsRef = ref?.child("game").child("\(gameID)").child("clue");
         cardsRef?.childByAutoId().setValue(post)
         
         doneWithTurn()
