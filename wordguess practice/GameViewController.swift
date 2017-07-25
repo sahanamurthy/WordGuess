@@ -110,6 +110,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         if doThis == true {
             var game = GameState()
             game.newGame()
+            print("GAME NUM")
+//            print(num)
+            print(game.gameNum)
+            print("GAME NUM")
             game.createCards()
             game.createPlayers()
             self.addPlayer()

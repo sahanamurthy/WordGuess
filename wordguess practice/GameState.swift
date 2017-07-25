@@ -113,24 +113,37 @@ class GameState {
     
     var ref:DatabaseReference?
     var handle:DatabaseHandle?
-    
+    var gameNum:Int = 0
     //////////////////////////////////////////////////////////
     func newGame() {
+        var newNum:Int = 0
         ref = Database.database().reference()
-        let handleGames = self.ref?.child("game").queryLimited(toLast: 1).observe(.value, with: {snapshot in
+        let handleGames = self.ref?.child("game").queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {snapshot in
             if !snapshot.exists() {
                 let gamesRef = self.ref?.child("game");
                 gamesRef?.child("1").setValue("1")
             } else {
-                let handleLatestGame = self.ref?.child("game").queryLimited(toLast: 1).observe(.value, with: {snapshot in
-                    var value = snapshot.value as! NSArray
-                    let num = ((value[1]) as AnyObject).integerValue
-                    var newNum = num! + 1
-                    print(newNum)
+                let handleLatestGame = self.ref?.child("game").queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {snapshot in
+                    if let value = snapshot.value as? NSDictionary {
+                        print(value.allValues[0])
+                        let num = ((value.allValues[0]) as AnyObject).integerValue
+                        newNum = num! + 1
+                        print(newNum)
+                        let newRef = self.ref?.child("game").child("\(newNum)").setValue("\(newNum)")
+                    } else if let value = snapshot.value as? NSArray {
+                        print("NSARRAY")
+                        print(value[1])
+                        let num = ((value[1]) as AnyObject).integerValue
+                        newNum = num! + 1
+                        let newRef = self.ref?.child("game").child("\(newNum)").setValue("\(newNum)")
+                    }
                 })
+                
             }
             
         })
+        
+        
     }
     //////////////////////////////////////////////////////////
     
