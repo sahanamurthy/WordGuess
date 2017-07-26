@@ -63,6 +63,10 @@ class FirstViewController: UIViewController {
             if !snapshot.exists() {
                 let gamesRef = self.ref?.child("game");
                 gamesRef?.child("1").setValue("1")
+                self.createAlert(title: "New Game Created!", message: "You just created game \(newNum)")
+                let newRef = self.ref?.child("game").child("\(newNum)").setValue("\(newNum)")
+                game.createCards(newNum)
+                game.createPlayers(newNum)
             } else {
                 let handleLatestGame = self.ref?.child("game").queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {snapshot in
                     if let value = snapshot.value as? NSDictionary {

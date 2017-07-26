@@ -174,6 +174,8 @@ class GameState {
             // Needs to be updated
             let cardsRef = ref?.child("game").child("\(num)").child("card");
             cardsRef?.child("\(index)").setValue(post)
+            
+             let turnRef = ref?.child("game").child("\(num)").child("turn").setValue("Purple clue giver");
         }
         
         // If unable to create multiple games, delete clues
