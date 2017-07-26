@@ -68,39 +68,27 @@ class FirstViewController: UIViewController, UITextFieldDelegate {
         var newNum:Int = 0
         var game = GameState()
         ref = Database.database().reference()
-        let handleGames = self.ref?.child("game").queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {snapshot in
+        let handleGames = self.ref?.child("game").queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {(snapshot) in
             if !snapshot.exists() {
                 newNum = 1
-                let newRef = self.ref?.child("game").child("\(newNum)").setValue("\(newNum)")
+                let newRef = self.ref?.child("game").child("1").setValue("1")
                 game.createCards(newNum)
                 game.createPlayers(newNum)
                 self.createAlert(title: "New Game Created!", message: "You just created game \(newNum)")
-            } else {
-                let handleLatestGame = self.ref?.child("game").queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {snapshot in
-                    if let value = snapshot.value as? NSDictionary {
-                        print(value.allValues[0])
-                        let num = ((value.allValues[0]) as AnyObject).integerValue
-                        newNum = num! + 1
-                        let newRef = self.ref?.child("game").child("\(newNum)").setValue("\(newNum)")
-                        game.createCards(newNum)
-                        game.createPlayers(newNum)
-                        self.createAlert(title: "New Game Created!", message: "You just created game \(newNum)")
-                        
-                    } else if let value = snapshot.value as? NSArray {
-                        print("NSARRAY")
-                        print(value[1])
-                        let num = ((value[1]) as AnyObject).integerValue
-                        newNum = num! + 1
-                        let newRef = self.ref?.child("game").child("\(newNum)").setValue("\(newNum)")
-                        game.createCards(newNum)
-                        game.createPlayers(newNum)
-                        self.createAlert(title: "New Game Created!", message: "You just created game \(newNum)")
-
-                    }
+            } else if snapshot.exists() {
+                let handleGames = self.ref?.child("game").queryLimited(toLast: 1).observeSingleEvent(of: .childAdded, with: {(snapshot) in
+                    let value = snapshot.value! as? DataSnapshot
+                    print(snapshot.key)
+                    var num:Int = Int(snapshot.key)!
+                    newNum = num + 1
+                    print(newNum)
+                    
+                    let newRef = self.ref?.child("game").child("\(newNum)").setValue("\(newNum)")
+                    game.createCards(newNum)
+                    game.createPlayers(newNum)
+                    self.createAlert(title: "New Game Created!", message: "You just created game \(newNum)")
                 })
-                
             }
-            
             
         })
         

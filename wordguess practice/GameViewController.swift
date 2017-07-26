@@ -135,6 +135,9 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             self.playerCount = Int(snapshot.childrenCount)
 //            print("Inside \(self.playerCount)")
             
+            var playersNeeded:Int = 0
+            playersNeeded = 4 - self.playerCount
+            
             for child in snapshot.children {
                 let childValue = child as! DataSnapshot
 //                print(childValue.key)
@@ -145,7 +148,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             }
             
             if self.playerCount < 4 && self.userInGame == true {
-                self.createAlert(title: "Almost there", message: "Waiting for 4 players")
+                self.createAlert(title: "Almost there", message: "Waiting for \(playersNeeded) player(s) to join")
                 
             } else if (self.playerCount < 4 && self.userInGame == false) {
                 self.addPlayer()
