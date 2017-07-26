@@ -333,7 +333,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             let valueSnap = snapshot.value as? NSDictionary
             let something:String = valueSnap?.value(forKey: self.currentUid!) as? AnyObject as! String
             
-            let turnRef = self.ref?.child("turn");
+            let turnRef = self.ref?.child("game").child("\(self.gameID)").child("turn");
             
             if something == "giver1" {
                 turnRef?.setValue("Purple guesser")
