@@ -186,7 +186,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                                 teamColor = "Orange"
                             }
                             
-                            self.createAlert(title: "Player Role", message: "You are the clue \(self.playerRole) for the \(teamColor) team.")
+                            self.createAlert(title: "Player Role", message: "You are the clue \(self.playerRole) for the \(teamColor) team")
                             break
                         }
                         
