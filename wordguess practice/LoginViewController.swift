@@ -63,8 +63,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emailText.placeholder = "Email"
-        passwordText.placeholder = "Password"
+//        emailText.placeholder = "Email"
+//        passwordText.placeholder = "Password"
         // Do any additional setup after loading the view.
     }
     

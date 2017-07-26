@@ -46,7 +46,7 @@ class FirstViewController: UIViewController {
         
         var currentUser = Auth.auth().currentUser?.email
         userLabel.text = currentUser
-        txtInput.placeholder = "Game Id #"
+//        txtInput.placeholder = "Game Id #"
         // Do any additional setup after loading the view.
     }
 

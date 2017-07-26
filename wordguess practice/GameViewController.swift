@@ -25,7 +25,8 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBOutlet weak var txtOutput: UITextView!
     @IBOutlet weak var txtInput: UITextField!
-    @IBOutlet weak var label: UILabel!
+//    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var clueNumView: UITextView!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var doneBtn: UIButton!
@@ -77,7 +78,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         pickerView.isHidden = true
         sendBtn.isHidden = true
         doneBtn.isHidden = true 
-        txtInput.placeholder = "Clue"
+//        txtInput.placeholder = "Clue"
         userLabel.text = currentUser
         ref = Database.database().reference()
         
@@ -106,6 +107,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         buttons.append(btn23)
         buttons.append(btn24)
         buttons.append(btn25)
+        
+        for button in buttons {
+            button.layer.cornerRadius = 10.0;
+        }
         
 //        var numberOfGame:Int = 0
         
@@ -261,7 +266,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             let word: String? = value!.object(forKey: "word") as? String
             let number: String? = value!.object(forKey: "number") as? String
             self.txtOutput.text = word!
-            self.label.text = number!
+            self.clueNumView.text = number!
         })
 
     }
