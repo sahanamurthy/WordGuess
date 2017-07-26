@@ -176,13 +176,17 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                                 self.doneBtn.isHidden = false
                             }
                             
+                            var teamColor:String = ""
+                            
                             if self.playerTeam == 1 {
                                 self.addBackgroundBorder(1)
+                                teamColor = "Purple"
                             } else if self.playerTeam == 2 {
                                 self.addBackgroundBorder(2)
+                                teamColor = "Orange"
                             }
                             
-                            self.createAlert(title: "Info", message: "You are the \(self.playerRole) for team \(self.playerTeam). Team 1: Purple. Team 2: Orange.")
+                            self.createAlert(title: "Player Role", message: "You are the clue \(self.playerRole) for the \(teamColor) team.")
                             break
                         }
                         
