@@ -109,7 +109,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         buttons.append(btn25)
         
         for button in buttons {
-            button.layer.cornerRadius = 10.0;
+            button.layer.cornerRadius = 5.0;
         }
         
 //        var numberOfGame:Int = 0
@@ -450,10 +450,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     func addBackgroundBorder(_ team:Int) {
         if team == 1 {
-            self.backgroundImage.layer.borderWidth = 2.0;
+            self.backgroundImage.layer.borderWidth = 4.0;
             self.backgroundImage.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:1.0).cgColor;
         } else if team == 2 {
-            self.backgroundImage.layer.borderWidth = 2.0;
+            self.backgroundImage.layer.borderWidth = 4.0;
             self.backgroundImage.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:1.0).cgColor;
         }
         
