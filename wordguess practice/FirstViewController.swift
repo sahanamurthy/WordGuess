@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, UITextFieldDelegate {
     var ref:DatabaseReference?
     var handle:DatabaseHandle?
     var currentUid = Auth.auth().currentUser?.uid
@@ -43,13 +43,22 @@ class FirstViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.txtInput.delegate = self
         var currentUser = Auth.auth().currentUser?.email
         userLabel.text = currentUser
 //        txtInput.placeholder = "Game Id #"
         // Do any additional setup after loading the view.
     }
-
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        txtInput.resignFirstResponder()
+        return true 
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

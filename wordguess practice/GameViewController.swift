@@ -25,7 +25,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBOutlet weak var txtOutput: UITextView!
     @IBOutlet weak var txtInput: UITextField!
-//    @IBOutlet weak var label: UILabel!
     @IBOutlet weak var clueNumView: UITextView!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var sendBtn: UIButton!
@@ -75,10 +74,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         txtInput.isHidden = true
+        self.txtInput.delegate = self
         pickerView.isHidden = true
         sendBtn.isHidden = true
-        doneBtn.isHidden = true 
-//        txtInput.placeholder = "Clue"
+        doneBtn.isHidden = true
         userLabel.text = currentUser
         ref = Database.database().reference()
         
@@ -423,9 +422,13 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         selectedNum = numbers[row]
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         txtInput.resignFirstResponder()
-        return false
+        return true
     }
     
     func addButtonBorder() {

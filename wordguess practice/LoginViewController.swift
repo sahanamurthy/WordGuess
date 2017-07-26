@@ -63,9 +63,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        emailText.placeholder = "Email"
-//        passwordText.placeholder = "Password"
-        // Do any additional setup after loading the view.
+        
+        self.emailText.delegate = self
+        self.passwordText.delegate = self
     }
     
     func createAlert (title:String, message:String) {
@@ -76,6 +76,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
