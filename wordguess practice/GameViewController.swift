@@ -350,67 +350,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func didTouchButton(_ sender: UIButton) {
-        sender.isEnabled = false
-        var ref:DatabaseReference?
-        ref = Database.database().reference()
-        
-        var index:Int? = nil
-        if (sender == btn) {
-            index = 0
-        } else if (sender == btn4) {
-            index = 3
-        } else if (sender == btn5) {
-            index = 4
-        } else if (sender == btn6) {
-            index = 5
-        } else if (sender == btn7) {
-            index = 6
-        } else if (sender == btn9) {
-            index = 8
-        } else if (sender == btn11) {
-            index = 10
-        } else if (sender == btn13) {
-            index = 12
-        } else if (sender == btn14) {
-            index = 13
-        } else if (sender == btn16) {
-            index = 15
-        } else if (sender == btn18) {
-            index = 17
-        } else if (sender == btn20) {
-            index = 19
-        } else if (sender == btn21) {
-            index = 20
-        } else if (sender == btn23) {
-            index = 22
-        } else if (sender == btn25) {
-            index = 24
-        } else if (sender == btn19) {
-            index = 18
-        } else if (sender == btn10) {
-            index = 9
-        } else if (sender == btn24) {
-            index = 23
-        } else if (sender == btn2) {
-            index = 1
-        } else if (sender == btn3) {
-            index = 2
-        } else if (sender == btn15) {
-            index = 14
-        } else if (sender == btn12) {
-            index = 11
-        } else if (sender == btn8) {
-            index = 7
-        } else if (sender == btn17) {
-            index = 16
-        } else if (sender == btn22) {
-            index = 21
-        }
-//        print(index!)
-        
-         // Needs to be updated
-        let cardsRef = ref?.child("game").child("\(gameID)").child("card");
-        cardsRef?.child("\(index!)").updateChildValues(["flipped": false])
         
         let handlePlayers = self.ref?.child("game").child("\(self.gameID)").child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
             for child in snapshot.children {
@@ -423,10 +362,72 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                     
                     self.playerRole = newValue?.object(forKey: "role") as! String
                     
-                    if self.playerRole == "giver" && sender.tag != 4 {
+                    if self.playerRole == "giver" {
                         self.createAlert(title: "?", message: "You're not supposed to be guessing!")
+                    } else if self.playerRole == "guesser" {
+                        sender.isEnabled = false
+                        var ref:DatabaseReference?
+                        ref = Database.database().reference()
+                        
+                        var index:Int? = nil
+                        if (sender == self.btn) {
+                            index = 0
+                        } else if (sender == self.btn4) {
+                            index = 3
+                        } else if (sender == self.btn5) {
+                            index = 4
+                        } else if (sender == self.btn6) {
+                            index = 5
+                        } else if (sender == self.btn7) {
+                            index = 6
+                        } else if (sender == self.btn9) {
+                            index = 8
+                        } else if (sender == self.btn11) {
+                            index = 10
+                        } else if (sender == self.btn13) {
+                            index = 12
+                        } else if (sender == self.btn14) {
+                            index = 13
+                        } else if (sender == self.btn16) {
+                            index = 15
+                        } else if (sender == self.btn18) {
+                            index = 17
+                        } else if (sender == self.btn20) {
+                            index = 19
+                        } else if (sender == self.btn21) {
+                            index = 20
+                        } else if (sender == self.btn23) {
+                            index = 22
+                        } else if (sender == self.btn25) {
+                            index = 24
+                        } else if (sender == self.btn19) {
+                            index = 18
+                        } else if (sender == self.btn10) {
+                            index = 9
+                        } else if (sender == self.btn24) {
+                            index = 23
+                        } else if (sender == self.btn2) {
+                            index = 1
+                        } else if (sender == self.btn3) {
+                            index = 2
+                        } else if (sender == self.btn15) {
+                            index = 14
+                        } else if (sender == self.btn12) {
+                            index = 11
+                        } else if (sender == self.btn8) {
+                            index = 7
+                        } else if (sender == self.btn17) {
+                            index = 16
+                        } else if (sender == self.btn22) {
+                            index = 21
+                        }
+                        //        print(index!)
+                        
+                        // Needs to be updated
+                        let cardsRef = ref?.child("game").child("\(self.gameID)").child("card");
+                        cardsRef?.child("\(index!)").updateChildValues(["flipped": false])
+
                     }
-                    
                     
                     self.playerTeam = newValue?.object(forKey: "team") as! Int
                     
@@ -440,7 +441,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             }
             
         })
-
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -486,10 +487,10 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     func addBackgroundBorder(_ team:Int) {
         if team == 1 {
-            self.backgroundImage.layer.borderWidth = 6.0;
+            self.backgroundImage.layer.borderWidth = 5.0;
             self.backgroundImage.layer.borderColor = UIColor(red:0.56, green:0.27, blue:0.68, alpha:1.0).cgColor;
         } else if team == 2 {
-            self.backgroundImage.layer.borderWidth = 6.0;
+            self.backgroundImage.layer.borderWidth = 5.0;
             self.backgroundImage.layer.borderColor = UIColor(red:0.95, green:0.47, blue:0.21, alpha:1.0).cgColor;
         }
         
