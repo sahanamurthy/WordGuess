@@ -429,10 +429,6 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         selectedNum = numbers[row]
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         txtInput.resignFirstResponder()
         return true

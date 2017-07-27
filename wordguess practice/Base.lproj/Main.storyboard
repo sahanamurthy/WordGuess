@@ -440,7 +440,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="samunummy" translatesAutoresizingMaskIntoConstraints="NO" id="AwG-c3-FPZ">
-                                <rect key="frame" x="16" y="0.0" width="149" height="86"/>
+                                <rect key="frame" x="16" y="13" width="149" height="73"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2qI-Eq-4tP">
