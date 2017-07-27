@@ -411,6 +411,36 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
          // Needs to be updated
         let cardsRef = ref?.child("game").child("\(gameID)").child("card");
         cardsRef?.child("\(index!)").updateChildValues(["flipped": false])
+        
+        let handlePlayers = self.ref?.child("game").child("\(self.gameID)").child("players").queryLimited(toFirst:4).observeSingleEvent(of: .value, with: { snapshot in
+            for child in snapshot.children {
+                let childValue = child as! DataSnapshot
+                let newValue = childValue.value as? NSDictionary
+                
+                let uid: String? = newValue?.object(forKey: "user") as! String
+                
+                if uid! == self.currentUid {
+                    
+                    self.playerRole = newValue?.object(forKey: "role") as! String
+                    
+                    if self.playerRole == "giver" && sender.tag != 4 {
+                        self.createAlert(title: "?", message: "You're not supposed to be guessing!")
+                    }
+                    
+                    
+                    self.playerTeam = newValue?.object(forKey: "team") as! Int
+                    
+                    if self.playerTeam != sender.tag && sender.tag != 4 {
+                        self.doneWithTurn()
+                        self.createAlert(title: "Incorrect Guess", message: "Yikes, sorry! Your turn is over.")
+                    }
+                    
+                }
+                
+            }
+            
+        })
+
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
