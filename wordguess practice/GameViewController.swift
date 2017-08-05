@@ -431,7 +431,7 @@ class GameViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                     
                     self.playerTeam = newValue?.object(forKey: "team") as! Int
                     
-                    if self.playerTeam != sender.tag && sender.tag != 4 {
+                    if self.playerTeam != sender.tag && sender.tag != 4 && self.playerRole == "guesser" {
                         self.doneWithTurn()
                         self.createAlert(title: "Incorrect Guess", message: "Yikes, sorry! Your turn is over.")
                     }
